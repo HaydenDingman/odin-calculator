@@ -17,22 +17,22 @@ function divide(a, b) {
 }
 
 // INPUT VARIABLES
-let firstNumber = 0;
-let secondNumber = 0;
-let operator = 0;
+let firstUserNumber = null;
+let secondUserNumber = null;
+let operator = null;
 let displayNumber = 0;
 
-function operate(firstNumber, secondNumber, operator) {
-    if (operator == "plus") {
+function operate(firstNumber, secondNumber, userOperator) {
+    if (userOperator == "plus") {
         return add(firstNumber, secondNumber);
     }
-    if (operator == "minus") {
+    if (userOperator == "minus") {
         return add(firstNumber, secondNumber);
     }
-    if (operator == "multiply") {
+    if (userOperator == "multiply") {
         return add(firstNumber, secondNumber);
     }
-    if (operator == "divide") {
+    if (userOperator == "divide") {
         return divide(firstNumber, secondNumber);
     }
 }
@@ -50,6 +50,13 @@ let eight = document.querySelector(".eight");
 let nine = document.querySelector(".nine");
 let zero = document.querySelector(".zero");
 
+let plus = document.querySelector(".plus");
+let minus = document.querySelector(".minus");
+let star = document.querySelector(".multiply");
+let slash = document.querySelector(".divide");
+let clear = document.querySelector(".clear");
+let equals = document.querySelector(".equals");
+
 one.addEventListener("click", () => displayValue("1"));
 two.addEventListener("click", () => displayValue("2"));
 three.addEventListener("click", () => displayValue("3"));
@@ -61,6 +68,11 @@ eight.addEventListener("click", () => displayValue("8"));
 nine.addEventListener("click", () => displayValue("9"));
 zero.addEventListener("click", () => displayValue("0"));
 
+plus.addEventListener("click", () => operatorInput("+"));
+minus.addEventListener("click", () => operatorInput("-"));
+star.addEventListener("click", () => operatorInput("*"));
+slash.addEventListener("click", () => operatorInput("/"));
+
 // Sets initial display content to 0
 display.textContent = "0";
 
@@ -69,6 +81,15 @@ function displayValue(number) {
         displayNumber = number;
     } else {
         displayNumber = displayNumber + number;
-    }        
+    }
     display.textContent = displayNumber;
+}
+
+function operatorInput(userOperator) {
+    if (operator === null) {
+        operator = userOperator;
+        firstUserNumber = displayNumber;
+        displayNumber = 0;
+        display.textContent = `${firstUserNumber} ${operator}`;
+    }
 }
