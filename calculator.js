@@ -19,6 +19,13 @@ function divide(a, b) {
     return a / b;
 }
 
+function modulo(a, b) {
+    if (b === 0) {
+        return a;
+    }
+    return a % b;
+}
+
 // INPUT VARIABLES
 let firstUserNumber = null;
 let secondUserNumber = null;
@@ -54,6 +61,7 @@ let seven = document.querySelector(".seven");
 let eight = document.querySelector(".eight");
 let nine = document.querySelector(".nine");
 let zero = document.querySelector(".zero");
+let dot = document.querySelector(".dot");
 
 let plusButton = document.querySelector(".plus");
 let minusButton = document.querySelector(".minus");
@@ -72,6 +80,7 @@ seven.addEventListener("click", () => displayValue("7"));
 eight.addEventListener("click", () => displayValue("8"));
 nine.addEventListener("click", () => displayValue("9"));
 zero.addEventListener("click", () => displayValue("0"));
+dot.addEventListener("click", () => displayValue("."))
 
 plusButton.addEventListener("click", () => operatorInput("+"));
 minusButton.addEventListener("click", () => operatorInput("-"));
@@ -85,12 +94,19 @@ equalsButton.addEventListener("click", () => equals())
 display.textContent = "0";
 
 function displayValue(number) {
+    if (number === ".") {
+        if (displayNumber === 0 || displayNumber.toString().includes(".")) {
+            return;
+        }
+    }
+    
     if (displayNumber === 0 || readyForInput === false) {
         readyForInput = true;
         displayNumber = number;
     } else {
         displayNumber = displayNumber + number;
     }
+
     display.textContent = displayNumber;
 }
 
@@ -122,10 +138,10 @@ function equals() {
         if (isNaN(result)) {
             display.textContent = result;
         } else {
-            console.log(result);
-            console.log(parseFloat(result));
             display.textContent = parseFloat(result.toPrecision(9));
         }
+        // Resets operatorInput and secondUserNumber functions so user can chain operations
+        // readyForInput ensures if user doesn't chain operations, display works as normal
         firstUserNumber = result;
         displayNumber = result;
         operator = null;

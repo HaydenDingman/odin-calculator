@@ -23,11 +23,11 @@ body{
 }
 
 .calculator-body {
-    width:300px;
+    box-sizing: border-box;
+    width:500px;
     background-color:dimgray;
     padding:70px 50px 110px 50px;
-    border:5px black groove;
-    
+    border:5px black groove;    
 }
 
 .display {
@@ -44,24 +44,33 @@ body{
 
 .buttons {
     display:flex;
-    flex-wrap: wrap;
+    width:300px;
+    height:400px;
 }
 
 .numbers {
     flex:3;
+    display:flex;
+    flex-wrap:wrap;
 }
 
 .functions {
-    flex:2;
-    padding-left:5px;
-    border-left: 1px antiquewhite solid;
+    flex:1;
+    display:flex;
+    flex-wrap:wrap;
 }
 
 button {
-    padding:10px 20px;
-    width:50px;
-    height:50px;
-    margin:2px;
+    flex:1 0 33%;
     box-sizing: border-box;
     border:2px solid black;
+    height:20%;
+}
+
+.zero {
+    flex:1 0 66%;
+}
+
+.function {
+    flex:1 0 100%;
 }
