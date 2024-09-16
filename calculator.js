@@ -97,6 +97,30 @@ signButton.addEventListener("click", () => changeSign());
 clearButton.addEventListener("click", () => clear());
 equalsButton.addEventListener("click", () => equals())
 
+// KEYBOARD SUPPORT
+document.addEventListener("keydown", (event) => {
+    const NUMERIC = "1234567890";
+    const SYMBOLS = "+-/*%";
+    if (NUMERIC.includes(event.key)) {
+        displayValue(event.key);
+    } else if (SYMBOLS.includes(event.key)) {
+        operatorInput(event.key);
+    } else if (event.key == "C" || event.key == "c") {
+        clear();
+    } else if (event.key == "=" || event.key == "Enter") {
+        equals();
+    } else if (event.key == "Backspace") {
+        if (displayNumber != 0) {
+            if (displayNumber.length >= 2) {
+                displayNumber = displayNumber.slice(0, -1);
+            } else {
+                displayNumber = 0;
+            }
+            display.textContent = displayNumber;
+        }
+    }
+})
+
 // Sets initial display content to 0
 display.textContent = "0";
 
