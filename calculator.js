@@ -47,6 +47,9 @@ function operate(firstNumber, secondNumber, userOperator) {
     if (userOperator == "/") {
         return divide(firstNumber, secondNumber);
     }
+    if (userOperator == "%") {
+        return modulo(firstNumber, secondNumber);
+    }
 }
 
 // QUERYSELECTORS
@@ -67,6 +70,8 @@ let plusButton = document.querySelector(".plus");
 let minusButton = document.querySelector(".minus");
 let multiplyButton = document.querySelector(".multiply");
 let divideButton = document.querySelector(".divide");
+let moduloButton = document.querySelector(".modulo");
+let signButton = document.querySelector(".sign");
 let clearButton = document.querySelector(".clear");
 let equalsButton = document.querySelector(".equals");
 
@@ -86,6 +91,8 @@ plusButton.addEventListener("click", () => operatorInput("+"));
 minusButton.addEventListener("click", () => operatorInput("-"));
 multiplyButton.addEventListener("click", () => operatorInput("*"));
 divideButton.addEventListener("click", () => operatorInput("/"));
+moduloButton.addEventListener("click", () => operatorInput("%"));
+signButton.addEventListener("click", () => changeSign());
 
 clearButton.addEventListener("click", () => clear());
 equalsButton.addEventListener("click", () => equals())
@@ -148,6 +155,11 @@ function equals() {
         secondUserNumber = null;
         readyForInput = false;
     }
+}
 
-
+function changeSign() {
+    if (parseFloat(displayNumber) != 0) {
+        displayNumber = parseFloat(displayNumber) * -1;
+        display.textContent = displayNumber;
+    }
 }
