@@ -13,6 +13,9 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
+    if (b === 0) {
+        return "Oops.";
+    }
     return a / b;
 }
 
@@ -21,6 +24,8 @@ let firstUserNumber = null;
 let secondUserNumber = null;
 let operator = null;
 let displayNumber = 0;
+let result = null;
+let readyForInput = true;
 
 function operate(firstNumber, secondNumber, userOperator) {
     if (userOperator == "+") {
@@ -33,9 +38,6 @@ function operate(firstNumber, secondNumber, userOperator) {
         return multiply(firstNumber, secondNumber);
     }
     if (userOperator == "/") {
-        if (secondNumber === 0) {
-            return "Universe Collapse";
-        }
         return divide(firstNumber, secondNumber);
     }
 }
@@ -83,7 +85,8 @@ equalsButton.addEventListener("click", () => equals())
 display.textContent = "0";
 
 function displayValue(number) {
-    if (parseInt(displayNumber) === 0) {
+    if (displayNumber === 0 || readyForInput === false) {
+        readyForInput = true;
         displayNumber = number;
     } else {
         displayNumber = displayNumber + number;
@@ -114,12 +117,20 @@ function clear() {
 function equals() {
     if (firstUserNumber && operator) {
         secondUserNumber = displayNumber;
-        let result = operate(parseFloat(firstUserNumber), parseFloat(secondUserNumber), operator);
-        displayNumber = parseFloat(result.toPrecision(9));
+        result = operate(parseFloat(firstUserNumber), parseFloat(secondUserNumber), operator);
+        // Displays string for divide-by-zero error. Otherwise, numeric result.
+        if (isNaN(result)) {
+            display.textContent = result;
+        } else {
+            console.log(result);
+            console.log(parseFloat(result));
+            display.textContent = parseFloat(result.toPrecision(9));
+        }
         firstUserNumber = result;
-        display.textContent = displayNumber;
+        displayNumber = result;
         operator = null;
         secondUserNumber = null;
+        readyForInput = false;
     }
 
 
