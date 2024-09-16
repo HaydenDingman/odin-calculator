@@ -23,7 +23,7 @@ let operator = null;
 let displayNumber = 0;
 
 function operate(firstNumber, secondNumber, userOperator) {
-    if (userOperator == "plus") {
+    if (userOperator == "+") {
         return add(firstNumber, secondNumber);
     }
     if (userOperator == "minus") {
@@ -73,6 +73,8 @@ minus.addEventListener("click", () => operatorInput("-"));
 star.addEventListener("click", () => operatorInput("*"));
 slash.addEventListener("click", () => operatorInput("/"));
 
+clear.addEventListener("click", () => clearButton());
+
 // Sets initial display content to 0
 display.textContent = "0";
 
@@ -92,4 +94,16 @@ function operatorInput(userOperator) {
         displayNumber = 0;
         display.textContent = `${firstUserNumber} ${operator}`;
     }
+}
+
+function clearButton() {
+    displayNumber = 0;
+    display.textContent = displayNumber;
+    firstUserNumber = null;
+    secondUserNumber = null;
+    operator = null;
+}
+
+function equalsButton() {
+    
 }
