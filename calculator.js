@@ -138,7 +138,12 @@ function displayValue(number) {
         displayNumber = displayNumber + number;
     }
 
-    display.textContent = displayNumber;
+    // Prevent Overflow of display field
+    if (displayNumber > 999999999) {
+        display.textContent = parseFloat(displayNumber).toPrecision(9);
+    } else {
+       display.textContent = displayNumber;     
+    }
 }
 
 function operatorInput(userOperator) {
