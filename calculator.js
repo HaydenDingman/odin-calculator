@@ -26,13 +26,16 @@ function operate(firstNumber, secondNumber, userOperator) {
     if (userOperator == "+") {
         return add(firstNumber, secondNumber);
     }
-    if (userOperator == "minus") {
-        return add(firstNumber, secondNumber);
+    if (userOperator == "-") {
+        return subtract(firstNumber, secondNumber);
     }
-    if (userOperator == "multiply") {
-        return add(firstNumber, secondNumber);
+    if (userOperator == "*") {
+        return multiply(firstNumber, secondNumber);
     }
-    if (userOperator == "divide") {
+    if (userOperator == "/") {
+        if (secondNumber === 0) {
+            return "Universe Collapse";
+        }
         return divide(firstNumber, secondNumber);
     }
 }
@@ -50,12 +53,12 @@ let eight = document.querySelector(".eight");
 let nine = document.querySelector(".nine");
 let zero = document.querySelector(".zero");
 
-let plus = document.querySelector(".plus");
-let minus = document.querySelector(".minus");
-let star = document.querySelector(".multiply");
-let slash = document.querySelector(".divide");
-let clear = document.querySelector(".clear");
-let equals = document.querySelector(".equals");
+let plusButton = document.querySelector(".plus");
+let minusButton = document.querySelector(".minus");
+let multiplyButton = document.querySelector(".multiply");
+let divideButton = document.querySelector(".divide");
+let clearButton = document.querySelector(".clear");
+let equalsButton = document.querySelector(".equals");
 
 one.addEventListener("click", () => displayValue("1"));
 two.addEventListener("click", () => displayValue("2"));
@@ -68,12 +71,13 @@ eight.addEventListener("click", () => displayValue("8"));
 nine.addEventListener("click", () => displayValue("9"));
 zero.addEventListener("click", () => displayValue("0"));
 
-plus.addEventListener("click", () => operatorInput("+"));
-minus.addEventListener("click", () => operatorInput("-"));
-star.addEventListener("click", () => operatorInput("*"));
-slash.addEventListener("click", () => operatorInput("/"));
+plusButton.addEventListener("click", () => operatorInput("+"));
+minusButton.addEventListener("click", () => operatorInput("-"));
+multiplyButton.addEventListener("click", () => operatorInput("*"));
+divideButton.addEventListener("click", () => operatorInput("/"));
 
-clear.addEventListener("click", () => clearButton());
+clearButton.addEventListener("click", () => clear());
+equalsButton.addEventListener("click", () => equals())
 
 // Sets initial display content to 0
 display.textContent = "0";
@@ -88,6 +92,9 @@ function displayValue(number) {
 }
 
 function operatorInput(userOperator) {
+    if (operator != null) {
+        equals();
+    }
     if (operator === null) {
         operator = userOperator;
         firstUserNumber = displayNumber;
@@ -96,7 +103,7 @@ function operatorInput(userOperator) {
     }
 }
 
-function clearButton() {
+function clear() {
     displayNumber = 0;
     display.textContent = displayNumber;
     firstUserNumber = null;
@@ -104,6 +111,16 @@ function clearButton() {
     operator = null;
 }
 
-function equalsButton() {
-    
+function equals() {
+    if (firstUserNumber && operator) {
+        secondUserNumber = displayNumber;
+        let result = operate(parseFloat(firstUserNumber), parseFloat(secondUserNumber), operator);
+        displayNumber = parseFloat(result.toPrecision(9));
+        firstUserNumber = result;
+        display.textContent = displayNumber;
+        operator = null;
+        secondUserNumber = null;
+    }
+
+
 }
